@@ -1,9 +1,9 @@
+
 <template>
   <div class="home">
     <button v-on:click='createPDF()'>Download PDF</button>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import jsPDF from 'jspdf';
@@ -178,3 +178,4 @@ export default {
   }
 }
 </script>
+
