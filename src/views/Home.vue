@@ -1,9 +1,3 @@
-<template>
-  <div class="home">
-    <button v-on:click='createPDF()'>Download PDF</button>
-  </div>
-</template>
-
 <script>
 // @ is an alias to /src
 import jsPDF from 'jspdf';
@@ -13,81 +7,27 @@ export default {
   data: function() {
     return {
       resumeParts: {
-        first_name: 'Dylan',
-        last_name: 'Cross',
-        email: 'dylancross100@gmail.com',
-        phone_number: '312-468-1383',
-        short_bio: "' is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
-        linkedin_url: 'linkedin.com/dylan-cross100',
-        twitter_handle: 'N/A',
-        personal_blog: 'dylanswebsite.com',
-        resume_url: 'linktomyresume.com',
-        github_url: 'github.com/centerpush',
-        photo: 'Placeholder',
-        // title: 'Software Developer', // *****THIS IS A TEMPORARY FIELD PENDING API APROVAL*****
-        skills: [
-          {
-            skill: 'Ruby',
-            student_id: 0
-          },
-          {
-            skill: 'Rails',
-            student_id: 0
-          },
-          {
-            skill: 'Python',
-            student_id: 0
-          },
-        ],
-        experiences: [
-          {
-            start_date: '2019-03-07',
-            end_date: '2019-03-07',
-            job_title: 'This Project',
-            company_name: 'Actualize',
-            details: "is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
-            student_id: 0
-          }, 
-          {
-            start_date: '2019-03-07',
-            end_date: '2019-03-07',
-            job_title: 'My Old Job',
-            company_name: 'The One Place',
-            details: " is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
-            student_id: 0
-          }
-        ],
-        educations: [
-          {
-            start_date: '2019-03-07',
-            end_date: '2019-03-07',
-            degree: 'Masters In Everything',
-            university_name: 'University of Book Learnin\'',
-            details: 'Learned the rest of the things.', 
-            student_id: 0
-          },
-          {
-            start_date: '2019-03-07',
-            end_date: '2019-03-07',
-            degree: 'High School Diploma',
-            university_name: 'High School High',
-            details: 'Learned some of the things.', 
-            student_id: 0
-          }
-        ],
-        capstone: [
-          {
-            name: 'The Thing',
-            description: 'It is a thing that does stuff with things.',
-            url: 'Website.come',
-            student_id: 0
-          }
-        ]
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        short_bio: "",
+        linkedin_url: '',
+        twitter_handle: '',
+        personal_blog: '',
+        resume_url: '',
+        github_url: '',
+        photo: '',
+        title: '',
+        skills: [],
+        experiences: [],
+        educations: [],
+        capstone: []
       }
     };
   },
   created: function() {
-    axios.get('https://kill-nil.herokuapp.com/api/students/' + this.$route.params.id)
+    axios.get('https://kill-nil.herokuapp.com/api/students/' + '2')
       .then(response => {
         console.log(response.data)
         this.resumeParts = response.data
@@ -177,4 +117,6 @@ export default {
     }
   }
 }
+
+createPDF()
 </script>
