@@ -117,6 +117,11 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 
 createPDF()
 </script>
+=======
+</script>
+
+>>>>>>> 65e45676304aa4b02342405df321df84ecd1fceb
