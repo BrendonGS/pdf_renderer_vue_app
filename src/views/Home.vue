@@ -17,8 +17,8 @@ export default {
         last_name: 'Cross',
         email: 'dylancross100@gmail.com',
         phone_number: '312-468-1383',
-        short_bio: "'Hi! My name is Dylan! This is information. Blah blah blah. This is a middle bio section to push the limits of how the document renders text inside its box. I hope this is long enough because I am getting kind of board of typing. Clearly I need to add just a little bit more. Lets see if this is enough now. I probably should have just added one of those Ipsom Lorem things that these usually use' So now If I add a ton ",
-        linked_in_url: 'linkedin.com/dylan-cross100',
+        short_bio: "' is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
+        linkedin_url: 'linkedin.com/dylan-cross100',
         twitter_handle: 'N/A',
         personal_blog: 'dylanswebsite.com',
         resume_url: 'linktomyresume.com',
@@ -34,6 +34,10 @@ export default {
             skill: 'Rails',
             student_id: 0
           },
+          {
+            skill: 'Python',
+            student_id: 0
+          },
         ],
         experiences: [
           {
@@ -41,15 +45,15 @@ export default {
             end_date: '2019-03-07',
             job_title: 'This Project',
             company_name: 'Actualize',
-            details: 'Built the thing we are working with',
+            details: "is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
             student_id: 0
           }, 
           {
             start_date: '2019-03-07',
             end_date: '2019-03-07',
-            job_title: 'This Project',
-            company_name: 'Actualize',
-            details: 'Built the thing we are working with',
+            job_title: 'My Old Job',
+            company_name: 'The One Place',
+            details: " is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever.",
             student_id: 0
           }
         ],
@@ -59,7 +63,15 @@ export default {
             end_date: '2019-03-07',
             degree: 'Masters In Everything',
             university_name: 'University of Book Learnin\'',
-            details: 'Learned the Everything', 
+            details: 'Learned the rest of the things.', 
+            student_id: 0
+          },
+          {
+            start_date: '2019-03-07',
+            end_date: '2019-03-07',
+            degree: 'High School Diploma',
+            university_name: 'High School High',
+            details: 'Learned some of the things.', 
             student_id: 0
           }
         ],
@@ -86,24 +98,29 @@ export default {
         var doc = new jsPDF();
         var pagewidth = 210
         var pageHeight = 297
-        var nextY = 52
-        var bioLines = this.resumeParts['short_bio'].length / 60
+        var pageCenter = pagewidth / 2
+        var nextY = 23
+        var bioLines = this.resumeParts['short_bio'].length / 70
         // 4 mm per 12p line 
 
         doc.setFontSize(20);
         doc.setFont('times', 'bold');
-        doc.text((this.resumeParts['first_name'] + ' ' + this.resumeParts['last_name']), (pagewidth / 2), 23, {align: 'center'});
+        doc.text((this.resumeParts['first_name'] + ' ' + this.resumeParts['last_name']), pageCenter, nextY, {align: 'center'});
+        nextY += 9
         
         doc.setFontSize(12);
         doc.setFont('times', 'normal');
-        doc.text(this.resumeParts['email'] + " • " + this.resumeParts['phone_number'], (pagewidth / 2), 32, {align: 'center'});
-        doc.text(this.resumeParts['github_url'] + " • " + this.resumeParts['linkedin_url'], (pagewidth / 2), 39, {align: 'center'});
+        doc.text(this.resumeParts['email'] + " • " + this.resumeParts['phone_number'], pageCenter, nextY, {align: 'center'});
+        nextY += 7
+        doc.text(this.resumeParts['github_url'] + " • " + this.resumeParts['linkedin_url'], pageCenter, nextY, {align: 'center'});
+        nextY += 5
 
-        doc.line(15, 44, (pagewidth - 15), 44);
+        doc.line(15, nextY, (pagewidth - 15), nextY);
+        nextY += 8
 
         doc.setFontSize(16);
         doc.setFont('times', 'bold');
-        doc.text('Software Developer', (pagewidth / 2), nextY, {align: 'center'});
+        doc.text('Software Developer', pageCenter, nextY, {align: 'center'});
         nextY += 6
 
         doc.setFontSize(12);
@@ -117,7 +134,7 @@ export default {
         });
         skillString = skillString.substring(0, skillString.length - 2);
 
-        doc.text(skillString, (pagewidth / 2), nextY, {align: 'center'});
+        doc.text(skillString, pageCenter, nextY, {align: 'center'});
         nextY += 9;
 
         doc.setFontSize(16);
@@ -125,14 +142,35 @@ export default {
         doc.text('Experience', 14, nextY);
         nextY += 5;
 
-        doc.setFontSize(12);
+        for (var i = this.resumeParts['experiences'].length - 1; i >= 0; i--) {
+          var descLines = this.resumeParts['experiences'][i]['details'].length / 60
+          doc.setFontSize(12);
+          doc.setFont('times', 'bold');
+          doc.text((this.resumeParts['experiences'][i]['company_name'] + ', ' + this.resumeParts['experiences'][i]['job_title']), 14, nextY);
+          doc.text((this.resumeParts['experiences'][i]['start_date'] + ' - ' + this.resumeParts['experiences'][i]['end_date']), pagewidth - 14, nextY, {align: 'right'});
+          nextY += 5;
+
+          doc.setFont('times', 'normal');
+          doc.text(' • ' + this.resumeParts['experiences'][i]['details'], 24, nextY, {maxWidth: (pagewidth - 36)});
+          nextY += descLines * 4;
+        }
+
+        doc.setFontSize(16);
         doc.setFont('times', 'bold');
-        doc.text((this.resumeParts['experiences'][0]['company_name'] + ', ' + this.resumeParts['experiences'][0]['job_title']), 14, nextY);
-        doc.text((this.resumeParts['experiences'][0]['start_date'] + ' - ' + this.resumeParts['experiences'][0]['end_date']), pagewidth - 14, nextY, {align: 'right'});
+        doc.text('Education', 14, nextY);
         nextY += 5;
 
-        doc.setFont('times', 'normal');
-        doc.text(' • ' + this.resumeParts['experiences'][0]['details'], 24, nextY)
+        for (var i = this.resumeParts['educations'].length - 1; i >= 0; i--) {
+          doc.setFontSize(12);
+          doc.setFont('times', 'bold');
+          doc.text((this.resumeParts['educations'][i]['university_name'] + ', ' + this.resumeParts['educations'][i]['degree']), 14, nextY);
+          doc.text((this.resumeParts['educations'][i]['start_date'] + ' - ' + this.resumeParts['educations'][i]['end_date']), pagewidth - 14, nextY, {align: 'right'});
+          nextY += 5
+          doc.setFontSize(12);
+          doc.setFont('times', 'normal');
+          doc.text(' • ' + this.resumeParts['educations'][i]['details'], 19, nextY, {maxWidth: (pagewidth - 36)});
+          nextY += 5;
+        }
 
 
         doc.save(this.resumeParts['first_name'] + '_' + this.resumeParts['last_name'] + "_resume" + '.pdf');
