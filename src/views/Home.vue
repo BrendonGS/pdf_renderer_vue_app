@@ -87,11 +87,11 @@ export default {
     };
   },
   created: function() {
-    // axios.get('https://kill-nil.herokuapp.com/api/students/1')
-    //   .then(response => {
-    //     console.log(response.data)
-    //     this.resumeParts = response.data
-    //   });
+    axios.get('https://kill-nil.herokuapp.com/api/students/' + this.$route.params.id)
+      .then(response => {
+        console.log(response.data)
+        this.resumeParts = response.data
+      });
   },
   methods: {
     createPDF () {
