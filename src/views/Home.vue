@@ -43,6 +43,14 @@ export default {
             company_name: 'Actualize',
             details: 'Built the thing we are working with',
             student_id: 0
+          }, 
+          {
+            start_date: '2019-03-07',
+            end_date: '2019-03-07',
+            job_title: 'This Project',
+            company_name: 'Actualize',
+            details: 'Built the thing we are working with',
+            student_id: 0
           }
         ],
         educations: [
@@ -101,25 +109,30 @@ export default {
         doc.setFontSize(12);
         doc.setFont('times', 'normal');
         doc.text(this.resumeParts['short_bio'], 14, nextY, {maxWidth: (pagewidth - 25)});
-        nextY += (4 * bioLines)
+        nextY += (4 * bioLines);
 
         var skillString = ''
         this.resumeParts['skills'].forEach(function(item) {
           skillString += (item['skill'] + " | ");
         });
-        skillString = skillString.substring(0, skillString.length - 2)
+        skillString = skillString.substring(0, skillString.length - 2);
 
-        doc.text(skillString, (pagewidth / 2), nextY, {align: 'center'})
-        nextY += 9
+        doc.text(skillString, (pagewidth / 2), nextY, {align: 'center'});
+        nextY += 9;
 
         doc.setFontSize(16);
         doc.setFont('times', 'bold');
-        doc.text('Experience', 14, nextY)
-        nextY += 4
+        doc.text('Experience', 14, nextY);
+        nextY += 5;
 
         doc.setFontSize(12);
         doc.setFont('times', 'bold');
-        doc.text('Something', 14, nextY)
+        doc.text((this.resumeParts['experiences'][0]['company_name'] + ', ' + this.resumeParts['experiences'][0]['job_title']), 14, nextY);
+        doc.text((this.resumeParts['experiences'][0]['start_date'] + ' - ' + this.resumeParts['experiences'][0]['end_date']), pagewidth - 14, nextY, {align: 'right'});
+        nextY += 5;
+
+        doc.setFont('times', 'normal');
+        doc.text(' • ' + this.resumeParts['experiences'][0]['details'], 24, nextY)
 
 
         doc.save(this.resumeParts['first_name'] + '_' + this.resumeParts['last_name'] + "_resume" + '.pdf');
